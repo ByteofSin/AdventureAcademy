@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+namespace Byte.Item {
+    public class Item : ScriptableObject {
+        protected new string name;
+        protected string description;
+
+        public string GetName(){
+            return name;
+        }
+
+        public string GetDescription(){
+            return description;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
