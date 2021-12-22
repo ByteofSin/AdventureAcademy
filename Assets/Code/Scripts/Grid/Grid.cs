@@ -2,42 +2,23 @@ using UnityEngine;
 using System;
 using Sirenix.OdinInspector;
 
-namespace Byte.Grid {
+namespace Byte.Map {
     [System.Serializable]
-    public class Grid2D {
-        [TitleGroup("Dimensions")]
-        [HorizontalGroup("Dimensions/Values"), LabelWidth(0)]
-        [MinValue(1)]
-        [SerializeField] private int width = 10;
-
+    public class Grid <GridType> {
+        /* Variables
+        ============= */
+        private int width = 10;
+        private int height = 10;
+        private float cellSize = 1.0f;
+        private GridType[,] gridArray; //x by y. so grid[2,2] is equal to (2,2)
         
-        [TitleGroup("Dimensions")]
-        [HorizontalGroup("Dimensions/Values")]
-        [MinValue(1)]
-        [SerializeField] private int height = 10;
-
-        [TitleGroup("Dimensions")]
-        [HorizontalGroup("Dimensions/Size")]
-        [MinValue(0)]
-        [SerializeField] private float cellSize = 1.0f;
-
-        [TitleGroup("Options")]
-        [SerializeField] private bool debug = true;
-
-        [TitleGroup("Options")]
-        [EnableIf("debug")]
-        [ShowIf("debug")]
-        [SerializeField] private bool drawLines = true;
-
-        //Private Variables
-        private int[,] gridArray; //x by y. so grid[2,2] is equal to (2,2)
-        
-        //Constructors
-        public Grid2D(){
+        /* Constructors
+        ================ */
+        public Grid(){
             InitializeArray(width, height);
         }
 
-        public Grid2D(int width = 10, int height = 10){
+        public Grid(int width = 10, int height = 10){
             //Set variables to match
             this.width = width;
             this.height = height;
@@ -48,23 +29,22 @@ namespace Byte.Grid {
         //Initializers
         protected void InitializeArray(int width, int height){
             //Construct the array
-            gridArray = new int[width, height];
+            gridArray = new GridType[width, height];
 
             for(int x = 0; x < gridArray.GetLength(0); x++){
                 for(int y = 0; y < gridArray.GetLength(1); y++){
-                    gridArray[x,y] = 0;
+                    //gridArray[x,y] = new GridType();
                 }
             }
-
-            if(debug){
-                if(drawLines){
-                    DrawDebugLines();
-                }
-            }
+            
+            DrawDebugLines();
+               
         }
 
-        //Getters
-        //Dimension Getters
+        /* Getters and Setters
+        ======================= */
+        /* Dimension Getters 
+        --------------------- */
         public int GetWidth(){
             return width;
         }
@@ -73,27 +53,38 @@ namespace Byte.Grid {
             return height;
         }
 
-        //Cell size getter
-        public float GetCellSize(){
-            return cellSize;
-        }
-
-        //Cell count Getter
-        public int GetCellCount(){
-            return gridArray.Length;
-        }
-
-        //Gets cell position compared to world space
         private Vector3 GetWorldPosition(int x, int y){
             return new Vector3(x,0,y) * cellSize;
         }
 
-        //Getter for specific cell
-        public int GetCell(int x, int y){
-            return gridArray[x,y];
+        /* Cell Information Getters
+        ----------------------------- */
+        //Gets the cell size
+        public float GetCellSize(){
+            return cellSize;
         }
 
-        //Debugging
+        //Gets the total number of cells
+        public int GetCellCount(){
+            return gridArray.Length;
+        }
+        
+        /* Data Getters 
+        ---------------- */
+        public GridType GetCell(int x, int y){
+            if(x >= 0 && x < width && y >= 0 && y < height){ 
+                return gridArray[x,y];
+            } else {
+                return default(GridType);
+            }
+        }
+
+        public GridType GetCell(Vector3 cellIndex){
+            return GetCell((int)cellIndex.x, (int)cellIndex.y);
+        }
+
+        /* Debugging
+        =============*/
         private void DrawDebugLines(){
             for(int y = 0; y < gridArray.GetLength(1); y++){
                 for(int x = 0; x < gridArray.GetLength(0); x++){
