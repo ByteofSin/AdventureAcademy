@@ -56,7 +56,6 @@ namespace Byte.Grid {
             return grid.GetLength(2);
         }
 
-
         private Vector3 GetWorldPosition(int x, int y, int z){
             return new Vector3(x,y,z) * cellSize;
         }
