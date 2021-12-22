@@ -6,9 +6,6 @@ namespace Byte.Item {
         menuName = "Items/Item",
         order = 1)]
     public class Item : ScriptableObject {
-        [TitleGroup("Descriptions")]
-        [SerializeField] 
-        protected new string name;
 
         [TitleGroup("Descriptions")]
         [SerializeField]

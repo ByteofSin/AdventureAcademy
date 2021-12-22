@@ -7,6 +7,5 @@ namespace Byte.Rpg {
         menuName = "Class",
         order = 0)]
     public class Class : ScriptableObject {
-        public new string name;
     }
 }
