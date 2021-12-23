@@ -2,13 +2,13 @@
 Attaches to an object and tests the grid to ensure functionality.
 */
 
-using Byte.Grid;
+using Grid = Byte.Grid<int>;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
 namespace Byte.Tests {
     public class GridTest : MonoBehaviour {
-        [SerializeField] private Byte.Grid.Grid<int> grid;
+        [SerializeField] private Grid<int> grid;
 
         //Options Inspector
         [HorizontalGroup("Options")]
@@ -23,7 +23,7 @@ namespace Byte.Tests {
                     [SerializeField] private bool displayCellSize = true;  
 
         private void Start() {
-            grid = new Byte.Grid.Grid<int>(10,10);
+            grid = new Grid<int>(10,10);
             //Generate a 2D grid that is 20 by 20
             string outputText = "Grid Test: \n";
 

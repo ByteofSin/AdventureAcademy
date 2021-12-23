@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using Sirenix.OdinInspector;
 
-namespace Byte.Grid {
+namespace Byte {
     [System.Serializable]
     public class Grid <GridType> {
         /* Variables
@@ -56,13 +56,13 @@ namespace Byte.Grid {
 
         //Converts from graph to world position
         //X is the same but z is column and layers is y.
-        private Vector3 GetWorldPosition(int rowIndex, int colIndex, int layerIndex = 0){
-            return new Vector3(rowIndex, layerIndex, colIndex) * cellSize;
+        private Vector3 GetWorldPosition(int xIndex, int yIndex, int layerIndex = 0){
+            return new Vector3(xIndex, layerIndex, yIndex) * cellSize;
         }
 
-        private void GetIndex(Vector3 worldPosition, out int row, out int col, out int layer){
-            row = Mathf.FloorToInt(worldPosition.x / cellSize);
-            col = Mathf.FloorToInt(worldPosition.z / cellSize);
+        private void GetIndex(Vector3 worldPosition, out int x, out int y, out int layer){
+            x = Mathf.FloorToInt(worldPosition.x / cellSize);
+            y = Mathf.FloorToInt(worldPosition.z / cellSize);
             layer = Mathf.FloorToInt(worldPosition.y / cellSize);
         }
 
@@ -81,42 +81,50 @@ namespace Byte.Grid {
         /* Cell Getters and setters
             Uses int inputs to get by index or a vector 3 to get via world position
         ------------------------------------------------------------------------------*/
-        public GridType GetCell(int x, int y, int z = 0){
+        public GridType GetCell(int x, int y, int layer = 0){
             //Check to make sure the cell exists
-            if(x >= 0 && x < GetWidth() && 
-               y >= 0 && y < GetHeight() &&
-               z >= 0 && z < GetLayers()){ 
-                return grid[x,y,z];
+            if(ValidIndex(x, y, layer)){ 
+                return grid[x,y,layer];
             } else {
                 return default(GridType);
             }
         }
 
         public GridType GetCell(Vector3 position){
-            int row, col, layer;
-            GetIndex(position, out row, out col, out layer);
-            return GetCell(row, col, layer);
+            int x, y, layer;
+            GetIndex(position, out x, out y, out layer);
+            return GetCell(x, y, layer);
         }
 
-        public void SetCell(GridType data, int row, int col, int layer = 0){
+        public void SetCell(GridType data, int x, int y, int layer = 0){
             //Check to make sure the cell exists
-            if(row >= 0 && row < GetWidth() && 
-               col >= 0 && col < GetHeight() &&
-               layer >= 0 && layer < GetLayers()){ 
-               grid[row, layer, col] = data;
+            if(ValidIndex(x, y, layer)){
+               grid[x, y, layer] = data;
             }
         }
 
 
         public void SetCell(GridType data, Vector3 position){
-            int row, col, layer;
-            GetIndex(position, out row, out col, out layer);
-            SetCell(data, row, col, layer);
+            int x, y, layer;
+            GetIndex(position, out x, out y, out layer);
+            SetCell(data, x, y, layer);
+        }
+
+        /* Utility Functions
+        -------------------- */
+        private bool ValidIndex(int x, int y, int layer){
+            if(x >= 0 && x < GetWidth() && 
+               y >= 0 && y < GetHeight() &&
+               layer >= 0 && layer < GetLayers()){ 
+                return true;
+            } else {   
+                return false;
+            }
         }
 
         /* Debugging
         =============*/
-        public void DrawDebugLines(){
+        public void DrawDebugLines(float time = 60.0f){
             //Layer Loop
             for(int layer = 0; layer < GetLayers(); layer++){
 
@@ -125,18 +133,18 @@ namespace Byte.Grid {
                     for(int row = 0; row < GetWidth(); row++){
                         Debug.DrawLine(GetWorldPosition(row, col, layer),
                                     GetWorldPosition(row, col + 1, layer),
-                                    Color.white, 100.0f);
+                                    Color.white,time);
                         Debug.DrawLine(GetWorldPosition(row, col, layer),
                                     GetWorldPosition(row + 1, col, layer), 
-                                    Color.white, 100.0f);
+                                    Color.white, time);
                     }
                 }
                 Debug.DrawLine(GetWorldPosition(0, GetHeight(), layer), 
                                 GetWorldPosition(GetWidth(), GetHeight(), layer), 
-                                Color.white, 100.0f);
+                                Color.white, time);
                 Debug.DrawLine(GetWorldPosition(GetWidth(), 0, layer), 
                                 GetWorldPosition(GetWidth(), GetHeight(), layer), 
-                                Color.white, 100.0f);
+                                Color.white, time);
             }
           
         }

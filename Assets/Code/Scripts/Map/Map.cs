@@ -1,5 +1,5 @@
 /*
-Stores and handles map information
+Central location to store and handle components of map
 */
 
 using System.Collections;
@@ -9,8 +9,9 @@ using UnityEngine;
 
 using Sirenix.OdinInspector;
 
-using Byte.Map.Generator;
-using Byte.Grid;
+using Byte.TileSystem.Generator;
+using Tile = Byte.TileSystem.Tile;
+using Grid = Byte.Grid<Byte.TileSystem.Tile>;
 
 namespace Byte.Map {
     [System.Serializable]
@@ -35,22 +36,38 @@ namespace Byte.Map {
 
         [TitleGroup("MapGenerator")]
         [SerializeField]
-        private MapGeneratorBase generator;
+        private TileMapGenerator generator;
 
-        private Byte.Grid.Grid<MapObject> grid;
+        private Grid<Tile> grid;
+
+        [FoldoutGroup("Debug Options")]
+        [MinValue(0.1)]
+        [SerializeField]
+        private float time = 30.0f;
 
         private void Awake(){
             InitilizeGrid();
+            InitializeTileMap();
         }
 
         private void InitilizeGrid(){
-            grid = new Byte.Grid.Grid<MapObject>(width, height, layers, cellScale);
+            grid = new Grid<Tile>(width, height, layers, cellScale);
         }
 
+        private void InitializeTileMap(){
+
+        }
+
+        private void RenderTileMap(){
+
+        }
+
+        /* Debug utilities
+        ---------------------*/
         [Button("Display Debug Grid")]
         private void DisplayDebugGrid(){
             InitilizeGrid();
-            grid.DrawDebugLines();
+            grid.DrawDebugLines(time);
         }
     }
 }
