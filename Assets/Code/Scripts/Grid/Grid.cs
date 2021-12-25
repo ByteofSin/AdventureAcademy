@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
+
 
 namespace Byte {
     [System.Serializable]
@@ -60,7 +62,7 @@ namespace Byte {
             return new Vector3(xIndex, layerIndex, yIndex) * cellSize;
         }
 
-        private void GetIndex(Vector3 worldPosition, out int x, out int y, out int layer){
+        protected void GetIndex(Vector3 worldPosition, out int x, out int y, out int layer){
             x = Mathf.FloorToInt(worldPosition.x / cellSize);
             y = Mathf.FloorToInt(worldPosition.z / cellSize);
             layer = Mathf.FloorToInt(worldPosition.y / cellSize);
@@ -108,6 +110,22 @@ namespace Byte {
             int x, y, layer;
             GetIndex(position, out x, out y, out layer);
             SetCell(data, x, y, layer);
+        }
+
+        public List<GridType> GetAdjacentCells (int xIndex, int yIndex, int layerIndex){
+            List<GridType> adjactenCells = new List<GridType>();
+
+            for(int layer = layerIndex - 1; layer <= layerIndex + 1; layer++){
+                for(int y = yIndex - 1; y <= yIndex + 1; y++){
+                    for(int x = xIndex - 1; x <= xIndex + 1; x++){
+                        if(ValidIndex(x, y, layer)){
+                            adjactenCells.Add(GetCell(x, y, layer));
+                        }
+                    }
+                }
+            }
+
+            return adjactenCells;
         }
 
         /* Utility Functions

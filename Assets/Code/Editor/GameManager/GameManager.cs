@@ -10,6 +10,7 @@ using Sirenix.Utilities.Editor;
 
 //Scriptable Objects
 using Byte.Rpg;
+using Byte.TileSystem;
 
 namespace Byte.GameManager {
     public class GameManager : OdinMenuEditorWindow {
@@ -20,9 +21,13 @@ namespace Byte.GameManager {
         private bool rebuildMenuTree = false;
 
         public enum ManagerState {
+            //Rpg
             Classes,
             Abilities,
+            //Inventory
             Items,
+            //World F
+            Tiles,
             Colors
         }
 
@@ -39,10 +44,12 @@ namespace Byte.GameManager {
         //Draw Selected Objects
         private DrawSelected<Byte.Rpg.Class> drawClass = new DrawSelected<Byte.Rpg.Class>();
         private DrawSelected<Byte.Rpg.Ability> drawAbility = new DrawSelected<Byte.Rpg.Ability>();
+        private DrawSelected<Byte.TileSystem.TileType> drawTile = new DrawSelected<Byte.TileSystem.TileType>();
 
         //Files
         private string classPath = "Assets/Objects/Classes";
         private string abilityPath = "Assets/Objects/Abilities";
+        private string tileTypepath = "Assets/Objects/Tiles";
 
 
         [MenuItem("Tools/Game Manager")]
@@ -66,6 +73,7 @@ namespace Byte.GameManager {
                 case ManagerState.Classes:
                 case ManagerState.Abilities:
                 case ManagerState.Items:
+                case ManagerState.Tiles:
                 case ManagerState.Colors:
                     DrawEditor(enumIndex);
                     break;
@@ -84,6 +92,7 @@ namespace Byte.GameManager {
         protected override void Initialize(){
             drawClass.SetPath(classPath);
             drawAbility.SetPath(abilityPath);
+            drawTile.SetPath(tileTypepath);
         }
 
         protected override void DrawEditors(){
@@ -96,6 +105,9 @@ namespace Byte.GameManager {
                     drawAbility.SetSelected(this.MenuTree.Selection.SelectedValue);
                     break;
                 case ManagerState.Items:
+                    break;
+                case ManagerState.Tiles:
+                    drawTile.SetSelected(this.MenuTree.Selection.SelectedValue);
                     break;
                 case ManagerState.Colors:
                     break;
@@ -115,6 +127,7 @@ namespace Byte.GameManager {
             targets.Add(drawClass);
             targets.Add(drawAbility);
             targets.Add(null);
+            targets.Add(drawTile);
             targets.Add(null);
 
             //Add base target and store its index
@@ -131,6 +144,7 @@ namespace Byte.GameManager {
                 case ManagerState.Classes:
                 case ManagerState.Abilities:
                 case ManagerState.Items:
+                case ManagerState.Tiles:
                 case ManagerState.Colors:
                     base.DrawMenu();
                     break;
@@ -150,6 +164,9 @@ namespace Byte.GameManager {
                     tree.AddAllAssetsAtPath("Abilities", abilityPath, typeof(Byte.Rpg.Ability));
                     break;
                 case ManagerState.Items:
+                    break;
+                case ManagerState.Tiles:
+                    tree.AddAllAssetsAtPath("Tiles", tileTypepath, typeof(Byte.TileSystem.TileType));
                     break;
                 case ManagerState.Colors:
                     break;
