@@ -17,11 +17,13 @@ namespace Byte {
         
         private GridType[,,] grid;
         private float cellSize;
+        private float layerSize;
 
         /* Constructors
         ================ */
-        public Grid(int width = 10, int height = 10, int layers = 1, float cellSize = 1.0f){
+        public Grid(int width = 10, int height = 10, int layers = 1, float cellSize = 1.0f, float layerSize = 3.0f){
             this.cellSize = cellSize;
+            this.layerSize = layerSize;
             InitializeArray(width, height, layers);
         }
 
@@ -59,13 +61,16 @@ namespace Byte {
         //Converts from graph to world position
         //X is the same but z is column and layers is y.
         private Vector3 GetWorldPosition(int xIndex, int yIndex, int layerIndex = 0){
-            return new Vector3(xIndex, layerIndex, yIndex) * cellSize;
+            return new Vector3(
+                xIndex * cellSize,
+                layerIndex * layerSize,
+                yIndex * cellSize);
         }
 
         protected void GetIndex(Vector3 worldPosition, out int x, out int y, out int layer){
             x = Mathf.FloorToInt(worldPosition.x / cellSize);
             y = Mathf.FloorToInt(worldPosition.z / cellSize);
-            layer = Mathf.FloorToInt(worldPosition.y / cellSize);
+            layer = Mathf.FloorToInt(worldPosition.y / layerSize);
         }
 
         /* Cell Meta Information Getters

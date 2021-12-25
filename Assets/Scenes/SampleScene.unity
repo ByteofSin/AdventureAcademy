@@ -154,8 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 10
   height: 10
-  layers: 1
-  cellScale: 1
+  layers: 3
+  cellScale: 2
   time: 30
 --- !u!4 &189063876
 Transform:
