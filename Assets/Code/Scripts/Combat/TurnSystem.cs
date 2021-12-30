@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace Byte.Rpg {
     public class TurnSystem {
-        
+        private List<Unit> units;
+        private List<UnitParty> partys;
+
+        public void AddParty(){
+
+        }
+
     }
 }
