@@ -2,14 +2,14 @@ using System;
 
 using Sirenix.OdinInspector;
 
-using Grid = Byte.Grid<bool>;
+using Byte.Grid;
 
-using UnityEngine;
+//using UnityEngine;
 
-namespace Byte.Procedular {
+namespace Byte.Procedural {
     [System.Serializable]
     public class CelularAutomata {
-        private Grid grid;
+        private LayeredGrid<bool> grid;
 
         private int height = 10;
         private int width = 10;
@@ -22,11 +22,11 @@ namespace Byte.Procedular {
         private int birth = 3;
 
         public CelularAutomata(){
-            grid = new Grid(this.width, this.height, this.layers);
+            grid = new LayeredGrid<bool>(this.width, this.height, this.layers);
         }
 
         public CelularAutomata(int width, int height, int layers){
-            grid = new Grid(width, height, layers);
+            grid = new LayeredGrid<bool>(width, height, layers);
         }
 
         public void InitliazeGrid(){
@@ -43,7 +43,7 @@ namespace Byte.Procedular {
         }
 
         public void Iterate(){
-            Grid newGrid = new Grid(width, height, layers);
+            Byte.Grid.LayeredGrid<bool> newGrid = new Byte.Grid.LayeredGrid<bool>(width, height, layers);
             
             for(int layer = 0; layer < grid.GetLayers(); layer++){  
                 for(int y = 0; y < grid.GetHeight(); y++){

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
 
-namespace Byte {
+namespace Byte.Grid {
     [System.Serializable]
-    public class Grid <GridType> {
+    public class LayeredGrid <GridType> {
         /* Variables
         ============= 
         x is used for rows
@@ -19,16 +19,16 @@ namespace Byte {
         protected float cellSize;
         protected float layerSize;
 
+        public event EventHandler<int> OnGridObjectChanged;
+
         /* Constructors
         ================ */
-        public Grid(int width = 10, int height = 10, int layers = 1, float cellSize = 1.0f, float layerSize = 3.0f){
+        public LayeredGrid(int width = 10, int height = 10, int layers = 1, 
+                            float cellSize = 1.0f, float layerSize = 3.0f, 
+                            Func<LayeredGrid<GridType>, int, int, int, GridType> createGridObject = null){
             this.cellSize = cellSize;
             this.layerSize = layerSize;
-            InitializeArray(width, height, layers);
-        }
-
-        //Initialize the 
-        protected void InitializeArray(int width, int height, int layers){
+            
             //Construct the array
             grid = new GridType[width, height, layers];
 
@@ -36,13 +36,14 @@ namespace Byte {
             for(int l = 0; l < GetLayers(); l++){
                 for(int x = 0; x < GetWidth(); x++){
                     for(int y = 0; y < GetHeight(); y++){
-                        //gridArray[x,y] = new GridType();
+                        grid[x,y,l] = createGridObject(this, x, y, l);
                     }
                 }
             }
+            //InitializeArray(width, height, layers, createGridObject);
         }
 
-        /* Getters and Setters
+        /*Getters
         ======================= */
         /* Dimension Getters 
         --------------------- */

@@ -11,7 +11,7 @@ using Sirenix.OdinInspector;
 
 using Byte.TileSystem;
 using Byte.TileSystem.Generator;
-using Grid = Byte.Grid<Byte.TileSystem.Tile>;
+using Grid = Byte.Grid.LayeredGrid<Byte.TileSystem.Tile>;
 
 namespace Byte.Map {
     [System.Serializable]

@@ -7,11 +7,6 @@ namespace Byte.TileSystem {
     [CreateAssetMenu(menuName = "Tile",
         order = 0)]
     public class TileScriptableObject : ScriptableObject {
-        //Model
-        //Description
-        //Movement Cost
-        //Effects
-        //Destroyable
-        //Time on board
+        public Transform model;
     }    
 }
