@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Byte.Rpg {
-    public class Unit : MonoBehaviour {
+    public class TurnSystem {
         
     }
 }
