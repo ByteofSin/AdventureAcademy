@@ -9,8 +9,8 @@ using UnityEngine;
 
 using Sirenix.OdinInspector;
 
+using Byte.TileSystem;
 using Byte.TileSystem.Generator;
-using Tile = Byte.TileSystem.Tile;
 using Grid = Byte.Grid<Byte.TileSystem.Tile>;
 
 namespace Byte.Map {
@@ -34,28 +34,25 @@ namespace Byte.Map {
         [SerializeField]
         private float cellScale = 1.0f;
 
+        private TileMap tilemap;
+
         [TitleGroup("MapGenerator")]
         [SerializeField]
         private TileMapGenerator generator;
 
-        private Grid<Tile> grid;
-
         [FoldoutGroup("Debug Options")]
         [MinValue(0.1)]
         [SerializeField]
-        private float time = 30.0f;
+        private float gridDisplayTime = 30.0f;
 
         private void Awake(){
-            InitilizeGrid();
             InitializeTileMap();
         }
 
-        private void InitilizeGrid(){
-            grid = new Grid<Tile>(width, height, layers, cellScale);
-        }
+        
 
         private void InitializeTileMap(){
-
+            tilemap = new TileMap(width, height, layers, cellScale);
         }
 
         private void RenderTileMap(){
@@ -66,8 +63,8 @@ namespace Byte.Map {
         ---------------------*/
         [Button("Display Debug Grid")]
         private void DisplayDebugGrid(){
-            InitilizeGrid();
-            grid.DrawDebugLines(time);
+            InitializeTileMap();
+            tilemap.DrawDebugLines(gridDisplayTime);
         }
     }
 }

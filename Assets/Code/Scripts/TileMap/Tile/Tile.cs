@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Byte.TileSystem {
     public class Tile {
         [SerializeField]
-        private TileType tile;
+        
 
         public int xIndex;
         public int yIndex;

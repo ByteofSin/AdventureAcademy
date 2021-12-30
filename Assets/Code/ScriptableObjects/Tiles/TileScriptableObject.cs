@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Byte.TileSystem {
-    [CreateAssetMenu(fileName = "New Tile",
-        menuName = "Tile",
+    [CreateAssetMenu(menuName = "Tile",
         order = 0)]
-    public class TileType : ScriptableObject {
+    public class TileScriptableObject : ScriptableObject {
         //Model
         //Description
         //Movement Cost

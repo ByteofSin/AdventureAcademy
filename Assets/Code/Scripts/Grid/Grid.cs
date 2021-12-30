@@ -15,9 +15,9 @@ namespace Byte {
         z is used for layer (so up and down)
         */
         
-        private GridType[,,] grid;
-        private float cellSize;
-        private float layerSize;
+        protected GridType[,,] grid;
+        protected float cellSize;
+        protected float layerSize;
 
         /* Constructors
         ================ */
@@ -60,7 +60,7 @@ namespace Byte {
 
         //Converts from graph to world position
         //X is the same but z is column and layers is y.
-        private Vector3 GetWorldPosition(int xIndex, int yIndex, int layerIndex = 0){
+        protected Vector3 GetWorldPosition(int xIndex, int yIndex, int layerIndex = 0){
             return new Vector3(
                 xIndex * cellSize,
                 layerIndex * layerSize,
@@ -135,7 +135,7 @@ namespace Byte {
 
         /* Utility Functions
         -------------------- */
-        private bool ValidIndex(int x, int y, int layer){
+        protected bool ValidIndex(int x, int y, int layer){
             if(x >= 0 && x < GetWidth() && 
                y >= 0 && y < GetHeight() &&
                layer >= 0 && layer < GetLayers()){ 

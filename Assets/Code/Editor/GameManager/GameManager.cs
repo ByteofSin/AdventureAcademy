@@ -44,7 +44,7 @@ namespace Byte.GameManager {
         //Draw Selected Objects
         private DrawSelected<Byte.Rpg.Class> drawClass = new DrawSelected<Byte.Rpg.Class>();
         private DrawSelected<Byte.Rpg.Ability> drawAbility = new DrawSelected<Byte.Rpg.Ability>();
-        private DrawSelected<Byte.TileSystem.TileType> drawTile = new DrawSelected<Byte.TileSystem.TileType>();
+        private DrawSelected<Byte.TileSystem.TileScriptableObject> drawTile = new DrawSelected<Byte.TileSystem.TileScriptableObject>();
 
         //Files
         private string classPath = "Assets/Objects/Classes";
