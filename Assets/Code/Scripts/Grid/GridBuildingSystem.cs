@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Byte.Grid;
+using Byte.Utilities;
 
 namespace Byte.Grid {
     public class GridBuildingSystem : MonoBehaviour {
         private LayeredGrid<GridObject> grid;
+        public Transform testTransform;
         
         public void Awake(){
             int gridWidth = 10;
@@ -26,6 +28,14 @@ namespace Byte.Grid {
             grid.DrawDebugLines(30f);
         }
 
+        public void Update(){
+            if(Input.GetMouseButtonDown(0)){
+                Vector3 transformPosition = grid.GetWorldToGrid(MouseWorldPosition.GetMouseWorldPosition());
+
+                Instantiate(testTransform, transformPosition, Quaternion.identity);
+                
+            }
+        }
         
     }
     

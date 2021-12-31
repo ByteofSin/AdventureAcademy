@@ -61,17 +61,27 @@ namespace Byte.Grid {
 
         //Converts from graph to world position
         //X is the same but z is column and layers is y.
-        protected Vector3 GetWorldPosition(int xIndex, int yIndex, int layerIndex = 0){
+        public Vector3 GetWorldPosition(int xIndex, int yIndex, int layerIndex = 0){
             return new Vector3(
                 xIndex * cellSize,
                 layerIndex * layerSize,
                 yIndex * cellSize);
         }
 
-        protected void GetIndex(Vector3 worldPosition, out int x, out int y, out int layer){
+        public void GetIndex(Vector3 worldPosition, out int x, out int y, out int layer){
             x = Mathf.FloorToInt(worldPosition.x / cellSize);
             y = Mathf.FloorToInt(worldPosition.z / cellSize);
             layer = Mathf.FloorToInt(worldPosition.y / layerSize);
+        }
+
+        public Vector3 GetWorldToGrid(Vector3 worldPosition){
+            GetIndex(worldPosition, out int x, out int y, out int layer);
+
+            return new Vector3 (
+                (x * cellSize) + 0.5f,
+                (0),
+                (y * cellSize) + 0.5f
+            );
         }
 
         /* Cell Meta Information Getters

@@ -11,7 +11,7 @@ using Sirenix.OdinInspector;
 
 using Byte.TileSystem;
 using Byte.TileSystem.Generator;
-using Grid = Byte.Grid.LayeredGrid<Byte.TileSystem.Tile>;
+using Byte.Grid;
 
 namespace Byte.Map {
     [System.Serializable]
@@ -34,11 +34,7 @@ namespace Byte.Map {
         [SerializeField]
         private float cellScale = 1.0f;
 
-        private TileMap tilemap;
-
-        [TitleGroup("MapGenerator")]
-        [SerializeField]
-        private TileMapGenerator generator;
+        //private LayeredGrid grid;
 
         [FoldoutGroup("Debug Options")]
         [MinValue(0.1)]
@@ -52,19 +48,16 @@ namespace Byte.Map {
         
 
         private void InitializeTileMap(){
-            tilemap = new TileMap(width, height, layers, cellScale);
+            //tilemap = new TileMap(width, height, layers, cellScale);
         }
 
-        private void RenderTileMap(){
-
-        }
 
         /* Debug utilities
         ---------------------*/
         [Button("Display Debug Grid")]
         private void DisplayDebugGrid(){
             InitializeTileMap();
-            tilemap.DrawDebugLines(gridDisplayTime);
+            //tilemap.DrawDebugLines(gridDisplayTime);
         }
     }
 }
