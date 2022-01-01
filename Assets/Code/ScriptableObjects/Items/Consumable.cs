@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Byte.Item {
+namespace Byte.Rpg.Items {
     [CreateAssetMenu(fileName = "New Consumable",
         menuName = "Items/Consumable",
         order = 2)]

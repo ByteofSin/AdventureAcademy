@@ -1,7 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-namespace Byte.Item {
+namespace Byte.Rpg.Items {
     [CreateAssetMenu(fileName = "New Item",
         menuName = "Items/Item",
         order = 1)]
