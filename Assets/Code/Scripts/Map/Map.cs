@@ -33,8 +33,10 @@ namespace Byte.Map {
 
         [SerializeField]
         private float cellScale = 1.0f;
+        
+        [SerializeField] private float layerSize = 2.0f;
 
-        //private LayeredGrid grid;
+        private LayeredGrid<MapObject> grid;
 
         [FoldoutGroup("Debug Options")]
         [MinValue(0.1)]
@@ -42,13 +44,19 @@ namespace Byte.Map {
         private float gridDisplayTime = 30.0f;
 
         private void Awake(){
-            InitializeTileMap();
         }
 
         
 
-        private void InitializeTileMap(){
-            //tilemap = new TileMap(width, height, layers, cellScale);
+        private void InitializeMap(){
+            this.grid = new LayeredGrid<MapObject>(
+                width, height, layers,
+                cellScale, layerSize,
+                (LayeredGrid<MapObject> grid, int x, int y, int layer) => new MapObject(
+                    grid,
+                    x, y, layer
+                )
+            );
         }
 
 
@@ -56,7 +64,7 @@ namespace Byte.Map {
         ---------------------*/
         [Button("Display Debug Grid")]
         private void DisplayDebugGrid(){
-            InitializeTileMap();
+            InitializeMap();
             //tilemap.DrawDebugLines(gridDisplayTime);
         }
     }
