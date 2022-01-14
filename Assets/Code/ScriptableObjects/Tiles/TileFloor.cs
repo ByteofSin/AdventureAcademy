@@ -8,5 +8,7 @@ namespace Byte.TileSystem {
         menuName = "Tile",
         order = 0)]
     public class TileFloor : TileScriptableObject {
+        
+
     }    
 }

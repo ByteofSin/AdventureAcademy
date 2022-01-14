@@ -15,7 +15,7 @@ using Byte.Grid;
 
 namespace Byte.Map {
     [System.Serializable]
-    public class Map : MonoBehaviour {
+    public class GridMap : MonoBehaviour {
         [TitleGroup("Dimensions")]
         [HorizontalGroup("Dimensions/BoundGroup")]
         [VerticalGroup("Dimensions/BoundGroup/Width"),
@@ -44,6 +44,7 @@ namespace Byte.Map {
         private float gridDisplayTime = 30.0f;
 
         private void Awake(){
+            InitializeMap();
         }
 
         
@@ -59,13 +60,17 @@ namespace Byte.Map {
             );
         }
 
+        public LayeredGrid<MapObject> GetGrid (){
+            return grid;
+        }
+
 
         /* Debug utilities
         ---------------------*/
         [Button("Display Debug Grid")]
         private void DisplayDebugGrid(){
             InitializeMap();
-            //tilemap.DrawDebugLines(gridDisplayTime);
+            grid.DrawDebugLines(gridDisplayTime);
         }
     }
 }

@@ -8,5 +8,6 @@ namespace Byte.TileSystem {
         order = 0)]
     public class TileScriptableObject : ScriptableObject {
         public Transform model;
+        public Material material;
     }    
 }

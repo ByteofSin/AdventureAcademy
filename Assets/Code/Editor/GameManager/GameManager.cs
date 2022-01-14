@@ -47,9 +47,9 @@ namespace Byte.GameManager {
         private DrawSelected<Byte.TileSystem.TileScriptableObject> drawTile = new DrawSelected<Byte.TileSystem.TileScriptableObject>();
 
         //Files
-        private string classPath = "Assets/Objects/Classes";
-        private string abilityPath = "Assets/Objects/Abilities";
-        private string tileTypepath = "Assets/Objects/Tiles";
+        private string classPath = "Assets/Resources/Classes";
+        private string abilityPath = "Assets/Resources/Abilities";
+        private string tileTypepath = "Assets/Resources/Tiles";
 
 
         [MenuItem("Tools/Game Manager")]

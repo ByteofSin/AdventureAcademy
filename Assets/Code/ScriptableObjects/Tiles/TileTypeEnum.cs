@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Byte.TileSystem {
     public enum TileType {
         Floor,
-        Wall,
-        Object
+        Wall
     }
 }
